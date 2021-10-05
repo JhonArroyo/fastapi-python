@@ -17,6 +17,6 @@ ENTRYPOINT uvicorn --host 0.0.0.0 app:app --reload
 ##
 ##
 # docker -t fastapi_python_0 .
-# docker run -it -p 8000:8000 -v ${PWD}:/usr/src/app fastapi_python
+# docker run --name fastapi_python -it -p 8000:8000 -v ${PWD}:/usr/src/app fastapi_python
 
 
