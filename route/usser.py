@@ -1,4 +1,6 @@
-from fastapi import APIRouter, Response
+from fastapi import APIRouter, Response, Form, Request
+from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
 from config.db import conn
 from model.user import users
 from schemas.user_schema import User
@@ -8,6 +10,13 @@ from cryptography.fernet import Fernet
 usser = APIRouter()
 keyCrypt = Fernet.generate_key()
 f = Fernet(keyCrypt)
+
+templates = Jinja2Templates(directory="html")
+usser.mount("/css", StaticFiles(directory="css"), name="css")
+
+@usser.get("/users/form")
+async def html_form(request: Request):
+    return templates.TemplateResponse("form_user.html", context={"request": request})
 
 @usser.get("/users")
 def get_users():
